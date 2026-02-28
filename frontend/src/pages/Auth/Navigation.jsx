@@ -1,4 +1,4 @@
-import { AiOutlineHome,AiOutlineLogin, AiOutlineUserAdd  } from 'react-icons/ai'
+import { AiOutlineHome, AiOutlineLogin, AiOutlineUserAdd } from 'react-icons/ai'
 import { MdOutlineLocalMovies } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
@@ -58,7 +58,7 @@ const Navigation = () => {
 
 
         {/* Section 2 */}
-        
+
         <div className="relative">
           <button
             onClick={toggleDropdown}
@@ -73,9 +73,8 @@ const Navigation = () => {
             {userInfo && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className={`h-4 w-4 ml-1 ${
-                  dropdownOpen ? "transform rotate-180" : ""
-                }`}
+                className={`h-4 w-4 ml-1 ${dropdownOpen ? "transform rotate-180" : ""
+                  }`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="white"
@@ -92,9 +91,7 @@ const Navigation = () => {
 
           {dropdownOpen && userInfo && (
             <ul
-              className={`absolute right-0 mt-2 mr-14 w-40 space-y-2 bg-white text-gray-600 ${
-                !userInfo.isAdmin ? "-top-20" : "-top-24"
-              }`}
+              className="absolute right-0 bottom-full mb-2 mr-14 w-40 space-y-2 bg-white text-gray-600"
             >
               {userInfo.isAdmin && (
                 <>

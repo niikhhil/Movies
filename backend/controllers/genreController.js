@@ -32,7 +32,7 @@ const updateGenre = asyncHandler(async (req, res) => {
         const { name } = req.body
         const { id } = req.params
 
-        const genre = await findOne({_id: id});
+        const genre = await Genre.findOne({_id: id});
 
         if(!genre) {
             return res.status(404).json({error: "Genre not found."})
@@ -48,4 +48,45 @@ const updateGenre = asyncHandler(async (req, res) => {
     }
 });
 
-export { createGenre, updateGenre };
+const removeGenre =  asyncHandler(async (req, res) => {
+    try {
+        
+        const { id } = req.params
+        const removed = await Genre.findByIdAndDelete(id)
+
+        if(!removed) {
+            return res.status(404).json({error: "Genre not found"})
+        }
+
+        res.json(removed)
+    
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({error: "Internal server error."})
+    }
+})
+
+const listGenres = asyncHandler(async (req, res) => {
+    try {
+        
+        const all = await Genre.find({});
+        res.json(all);
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({error: "Internal server error."})        
+    }
+});
+
+const readGenre = asyncHandler(async (req, res) => {
+    try {
+        
+        const { id } = req.params
+        const specificGenre = await Genre.findOne({_id: id})
+        res.json(specificGenre)
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({error: "Internal server error."})
+    }
+})
+export { createGenre, updateGenre, removeGenre, listGenres, readGenre };

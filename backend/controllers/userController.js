@@ -5,7 +5,7 @@ import asyncHandler from "../middlewares/asyncHandler.js";
 
 
 const createUser = asyncHandler(async (req, res) => {
-    const {username, email, password} = req.body;
+    const {username, email, password, isAdmin} = req.body;
 
     if(!username || !email || !password) {
         throw new Error('Please provide username, email and password.');
@@ -20,7 +20,7 @@ const createUser = asyncHandler(async (req, res) => {
     // Hash the user password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    const newUser = new User({username, email, password: hashedPassword});
+    const newUser = new User({username, email, password: hashedPassword, isAdmin: isAdmin || false});
 
 
     try {
@@ -95,7 +95,8 @@ const getCurrentUserProfile = asyncHandler(async (req, res) => {
         res.json({
             _id: user._id,
             username: user.username,
-            email: user.email
+            email: user.email,
+            isAdmin: user.isAdmin
         })
     }
     else {

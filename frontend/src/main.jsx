@@ -8,6 +8,8 @@ import { createBrowserRouter } from 'react-router-dom'
 
 
 // Auth 
+import AdminRoute from './pages/Admin/AdminRoute.jsx'
+import GenreList from './pages/Admin/GenreList.jsx'
 
 // Restricted 
 import Login from "./pages/Auth/Login.jsx"
@@ -20,12 +22,17 @@ import Home from './pages/Home.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element = {<App />}>
-      <Route index={true} path='/' element= {<Home />} />
-      <Route path='/login' element= {<Login />} />
-      <Route path='/register' element= {<Register />} />
-      <Route path='' element= {<PrivateRoute />} >
+    <Route path='/' element={<App />}>
+      <Route index={true} path='/' element={<Home />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/register' element={<Register />} />
+
+      <Route path='' element={<PrivateRoute />} >
         <Route path='/profile' element={<Profile />} />
+      </Route>
+
+      <Route path='' element={<AdminRoute />}>
+        <Route path='/admin/movies/genre' element={<GenreList />} />
       </Route>
     </Route>
   )
@@ -33,7 +40,7 @@ const router = createBrowserRouter(
 
 
 createRoot(document.getElementById('root')).render(
-  <Provider store = {store}>
-    <RouterProvider router={router} />  
+  <Provider store={store}>
+    <RouterProvider router={router} />
   </Provider>
 )
